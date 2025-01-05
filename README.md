@@ -24,4 +24,5 @@ For the ternary functions, here are some logic tables describing their behaviour
 | 1      | 0      | 1      | 0          | 0               | 0          |
 | 0      | 1      | 1      | 0          | 1               | 1          |
 | 1      | 1      | 1      | 1          | 0               | 1          |
+------------------------------------------------------------------------
 Notice that $F(0,Y,Z) = Y$ and $F(1,Y,Z)=Z$. This shows that $F(X,Y,Z)$ is the conditional "if X then Y, else Z". Also, notice that creating a logical table was entirely superfluous, because it's actually much easier to check $F(1,Y,Z)=(1\land Y)\lor (0\land Z)=Y$ and $F(0,Y,Z)=(0\land Y)\lor (1\land Z)=Z$ :/.
