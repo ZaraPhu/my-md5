@@ -9,11 +9,11 @@ Here, I will outline the procedure for creating an MD5 hash out of a message, wh
 2. Append 64 bits to the end of the padded message, which is equal to the full length of the original message (before padding). If that length is larger than $2^{64}-1$, then truncate the number so that only the least significant 64 bits are used. The message length at this step should now be equal to a multiple of 512 bits.
 3. Set the initial states $A=0x01234567$, $B=0x89abcdef$, $C=0xfedcba98$, and $D=0x76543210$. Recall that the "0x" prefix denotes a number written in a hexadecimal representation. The actual size of the state space is 32 bits. 
 4. Define the four ternary functions that take a word (a 32 bit number) and return another word. 
-$F(X,Y,Z)=(X\land Y)\lor (\neg X \land Z)$, $G(X,Y,Z)=(X\land Z)\oplus (Y\land \neg Z)$, $H(X,Y,Z)=X\oplus Y\oplus Z$, $I(X,Y,Z)=Y\oplus (X\lor \neg Z)$. For an cursory exploration of this function, see Appendix A of the README.
+$F(X,Y,Z)=(X\land Y)\lor (\neg X \land Z)$, $G(X,Y,Z)=(X\land Z)\oplus (Y\land \neg Z)$, $H(X,Y,Z)=X\oplus Y\oplus Z$, $I(X,Y,Z)=Y\oplus (X\lor \neg Z)$. For an cursory exploration of these functions, see Appendix A of the README.
 5. 
 
-## Appendix A: The $F$, $G$, $H$, and $I$ Ternary Functions
-For the ternary functions, here are some logic tables describing their behaviour. The behaviour of $F(X,Y,Z)$ looks like
+## Appendix A: The F, G, H, and I Ternary Functions
+For the ternary functions, one way of investigating their behaviours can be done by examining their truth tables. For example, this is a truth table for $F(X,Y,Z)$:
 | X      | Y      | Z      | $X\land Y$ | $\neg X\land Z$ | $F(X,Y,Z)=(X\land Y)\lor (\neg X\land Z)$ |
 | ------ | ------ | ------ | ---------- | --------------- | ----------------------------------------- |
 | 0      | 0      | 0      | 0          | 0               | 0                                         |
@@ -25,9 +25,7 @@ For the ternary functions, here are some logic tables describing their behaviour
 | 0      | 1      | 1      | 0          | 1               | 1                                         |
 | 1      | 1      | 1      | 1          | 0               | 1                                         |
 
-Notice that $F(0,Y,Z) = Y$ and $F(1,Y,Z)=Z$. This shows that $F(X,Y,Z)$ is the conditional "if X then Y, else Z". Also, notice that creating a logical table was entirely superfluous, because it's actually much easier to check $F(1,Y,Z)=(1\land Y)\lor (0\land Z)=Y$ and $F(0,Y,Z)=(0\land Y)\lor (1\land Z)=Z$. :( \
- \
-Furthermore, the functions $G$, $H$, and $I$ also have some special properties. \
+Notice that $F(0,Y,Z) = Y$ and $F(1,Y,Z)=Z$. This shows that $F(X,Y,Z)$ is the conditional "if X then Y, else Z".  But look! Creating a logical table was entirely superfluous, because it's actually much easier to check $F(1,Y,Z)=(1\land Y)\lor (0\land Z)=Y$ and $F(0,Y,Z)=(0\land Y)\lor (1\land Z)=Z$. So a better way of investigating these functions could be to view them as a control flow within a program. \
  \
 Notice that $G(X,Y,0)=(X\land 0)\lor (Y\land 1)=Y$ and $G(X,Y,1)=(X\land 1)\lor (Y\land 0)=X$ which is the same as the conditional if Z then X, else Y. \
  \
